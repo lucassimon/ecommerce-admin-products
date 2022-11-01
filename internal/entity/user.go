@@ -1,7 +1,7 @@
 package entity
 
 import (
-	"github.com/lucassrmagalhaes/ecommerce/pkg/entity"
+	"github.com/lucassimon/ecommerce-admin-products/pkg/entity"
 	"golang.org/x/crypto/bcrypt"
 )
 

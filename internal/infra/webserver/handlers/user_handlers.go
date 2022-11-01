@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/go-chi/jwtauth"
-	"github.com/lucassrmagalhaes/ecommerce/internal/dto"
-	"github.com/lucassrmagalhaes/ecommerce/internal/entity"
-	"github.com/lucassrmagalhaes/ecommerce/internal/infra/database"
+	"github.com/lucassimon/ecommerce-admin-products/internal/dto"
+	"github.com/lucassimon/ecommerce-admin-products/internal/entity"
+	"github.com/lucassimon/ecommerce-admin-products/internal/infra/database"
 )
 
 type Error struct {

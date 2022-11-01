@@ -4,7 +4,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/lucassrmagalhaes/ecommerce/pkg/entity"
+	"github.com/lucassimon/ecommerce-admin-products/pkg/entity"
 )
 
 var (

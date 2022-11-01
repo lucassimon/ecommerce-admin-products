@@ -6,10 +6,10 @@ import (
 	"strconv"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/lucassrmagalhaes/ecommerce/internal/dto"
-	"github.com/lucassrmagalhaes/ecommerce/internal/entity"
-	"github.com/lucassrmagalhaes/ecommerce/internal/infra/database"
-	entityPkg "github.com/lucassrmagalhaes/ecommerce/pkg/entity"
+	"github.com/lucassimon/ecommerce-admin-products/internal/dto"
+	"github.com/lucassimon/ecommerce-admin-products/internal/entity"
+	"github.com/lucassimon/ecommerce-admin-products/internal/infra/database"
+	entityPkg "github.com/lucassimon/ecommerce-admin-products/pkg/entity"
 )
 
 type ProductHandler struct {

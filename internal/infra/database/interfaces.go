@@ -1,6 +1,6 @@
 package database
 
-import "github.com/lucassrmagalhaes/ecommerce/internal/entity"
+import "github.com/lucassimon/ecommerce-admin-products/internal/entity"
 
 type UserInterface interface {
 	Create(user *entity.User) error

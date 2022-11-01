@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/lucassrmagalhaes/ecommerce/internal/entity"
+	"github.com/lucassimon/ecommerce-admin-products/internal/entity"
 	"gorm.io/gorm"
 )
 
