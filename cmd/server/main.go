@@ -5,7 +5,6 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/go-chi/jwtauth"
 	"github.com/lucassimon/ecommerce-admin-products/configs"
 	_ "github.com/lucassimon/ecommerce-admin-products/docs"
 	"github.com/lucassimon/ecommerce-admin-products/internal/entity"
@@ -37,7 +36,7 @@ import (
 // @in header
 // @name Authorization
 func main() {
-	configs, err := configs.LoadConfig(".")
+	_, err := configs.LoadConfig(".")
 	if err != nil {
 		panic(err)
 	}
@@ -45,30 +44,25 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	db.AutoMigrate(&entity.Product{}, &entity.User{})
+	db.AutoMigrate(&entity.Product{})
 	productDB := database.NewProduct(db)
 	productHandler := handlers.NewProductHandler(productDB)
-
-	userDB := database.NewUser(db)
-	userHandler := handlers.NewUserHandler(userDB)
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
-	r.Use(middleware.WithValue("jwt", configs.TokenAuth))
-	r.Use(middleware.WithValue("JwtExperesIn", configs.JwtExperesIn))
+	// r.Use(middleware.WithValue("jwt", configs.TokenAuth))
+	// r.Use(middleware.WithValue("JwtExperesIn", configs.JwtExperesIn))
 
 	r.Route("/products", func(r chi.Router) {
-		r.Use(jwtauth.Verifier(configs.TokenAuth))
-		r.Use(jwtauth.Authenticator)
+		// r.Use(jwtauth.Verifier(configs.TokenAuth))
+		// r.Use(jwtauth.Authenticator)
 		r.Post("/", productHandler.CreateProduct)
 		r.Get("/", productHandler.GetProducts)
 		r.Get("/{id}", productHandler.GetProduct)
 		r.Put("/{id}", productHandler.UpdateProduct)
 		r.Delete("/{id}", productHandler.DeleteProduct)
 	})
-	r.Post("/users", userHandler.Create)
-	r.Post("/users/generate_token", userHandler.GetJWT)
 
 	r.Get("/docs/*", httpSwagger.Handler(httpSwagger.URL("http://localhost:8000/docs/doc.json")))
 

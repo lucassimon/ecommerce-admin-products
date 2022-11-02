@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+  test: &defaults
+    build:
+      context: .
+      target: base
+    working_dir: /app/
+    command: go test -v ./...
+    environment:
+      - ENVIRONMENT=development
+      - PORT=8000
+      - CGO_ENABLED=00
+      - GOOS=linux
+    volumes:
+      - .:/app/
+      - go_packages:/go
+  app:
+    <<: &defaults
+    command: cd /cmd/server; go run main.go
+    ports:
+      - 8080:8080
+  ci:
+    <<: *defaults
+    build:
+      context: .
+      target: ci
+    volumes: []
+  rabbitmq:
+    image: rabbitmq:3.8.16-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "15692:15692"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_DEFAULT_VHOST=/
+  mysql:
+      image: mysql:5.7
+      container_name: mysql
+      restart: always
+      platform: linux/amd64
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: ecommerce-admin-produtos
+        MYSQL_PASSWORD: root
+      ports:
+        - 3306:3306
+
+volumes:
+  go_packages: {}
